@@ -21,14 +21,13 @@ public class EmailSending {
 	@Autowired
 	private JavaMailSender sender;
 	
-	@Value("$(spring.mail.username=manutj805517@gmail.com)")
-	private String fromEmail;
+	
 
 	public void sendEmailToCompany(String to, String subject, String text) {
 		SimpleMailMessage mail = new SimpleMailMessage();
 		mail.setTo(to);
 		mail.setText(text);
-		mail.setFrom(fromEmail);
+		mail.setFrom("info@globalautoexperts.com");
 		mail.setSubject(subject);
 		sender.send(mail);
 		
@@ -44,7 +43,7 @@ public class EmailSending {
 		SimpleMailMessage request = new SimpleMailMessage();
 		request.setTo(to);
 		request.setText(text);
-		request.setFrom("manoj805517@outlook.com");
+		request.setFrom("info@globalautoexperts.com");
 		request.setSubject(subject);
 		sender.send(request);
 	}
@@ -53,7 +52,7 @@ public class EmailSending {
 		SimpleMailMessage request = new SimpleMailMessage();
 		request.setTo(to);
 		request.setText(text);
-		request.setFrom("manoj805517@outlook.com");
+		request.setFrom("info@globalautoexperts.com");
 		request.setSubject(subject);
 		sender.send(request);
 	}
@@ -62,7 +61,7 @@ public class EmailSending {
 		SimpleMailMessage request = new SimpleMailMessage();
 		request.setTo(to);
 		request.setText(text);
-		request.setFrom("manoj805517@outlook.com");
+		request.setFrom("info@globalautoexperts.com");
 		request.setSubject(subject);
 		sender.send(request);
 	}
@@ -71,7 +70,7 @@ public class EmailSending {
 		SimpleMailMessage request = new SimpleMailMessage();
 		request.setTo(to);
 		request.setText(text);
-		request.setFrom("manoj805517@outlook.com");
+		request.setFrom("info@globalautoexperts.com");
 		request.setSubject(subject);
 		sender.send(request);
 	}
@@ -80,7 +79,7 @@ public class EmailSending {
 		SimpleMailMessage request = new SimpleMailMessage();
 		request.setTo(to);
 		request.setText(text);
-		request.setFrom("manoj805517@outlook.com");
+		request.setFrom("info@globalautoexperts.com");
 		request.setSubject(subject);
 		sender.send(request);
 	}

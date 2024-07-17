@@ -1,6 +1,11 @@
 package com.gae;
 
+import java.util.Map;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,11 +24,12 @@ import com.gae.repository.GaeRepository;
 import com.gae.service.ServiceLayer;
 import com.gae.util.EmailSending;
 
-
-@CrossOrigin(origins =  {"http://localhost:3000" , "http://localhost:8083"})
+@CrossOrigin(origins = { "http://localhost:3000", "http://localhost:8083" })
 @RestController
 @RequestMapping("/api")
 public class MainController {
+
+	private static final Logger log = LoggerFactory.getLogger(MainController.class);
 
 	@Autowired
 	private GaeRepository repo;
@@ -33,14 +39,17 @@ public class MainController {
 
 	@Autowired
 	private EmailSending sending;
-	
+
 	@GetMapping("/get")
-	public String getValue() {
-		return "hello";
+	public String getValue(@RequestBody SubscribeEntity entity) {
+
+		return entity.getName();
+
 	}
 
 	@PostMapping("/air")
 	public GaeEntity airConditioningToDatabase(@RequestBody GaeEntity entity, Model model) {
+		log.debug("Handling post request for api/air");
 		if (entity != null) {
 
 			GaeEntity savedEntity = service.saveData(entity);
@@ -64,6 +73,7 @@ public class MainController {
 
 	@PostMapping("/battery")
 	public GaeEntity batteryToDatabase(@RequestBody GaeEntity entity, Model model) {
+		log.debug("Handling post request for api/battery");
 		if (entity != null) {
 
 			GaeEntity savedEntity = service.saveData(entity);
@@ -87,6 +97,7 @@ public class MainController {
 
 	@PostMapping("/periodic")
 	public GaeEntity periodicToDatabase(@RequestBody GaeEntity entity, Model model) {
+		log.debug("Handling post request for api/periodic");
 		if (entity != null) {
 
 			GaeEntity savedEntity = service.saveData(entity);
@@ -110,6 +121,7 @@ public class MainController {
 
 	@PostMapping("/oil")
 	public GaeEntity oilFilterToDatabase(@RequestBody GaeEntity entity, Model model) {
+		log.debug("Handling post request for api/oil");
 		if (entity != null) {
 
 			GaeEntity savedEntity = service.saveData(entity);
@@ -133,6 +145,7 @@ public class MainController {
 
 	@PostMapping("/brake")
 	public GaeEntity brakeServicesToDatabase(@RequestBody GaeEntity entity, Model model) {
+		log.debug("Handling post request for api/brake");
 		if (entity != null) {
 
 			GaeEntity savedEntity = service.saveData(entity);
@@ -156,6 +169,7 @@ public class MainController {
 
 	@PostMapping("/batteryjump")
 	public GaeEntity batteryJumpToDatabase(@RequestBody GaeEntity entity, Model model) {
+		log.debug("Handling post request for api/batteryjump");
 		if (entity != null) {
 
 			GaeEntity savedEntity = service.saveData(entity);
@@ -179,6 +193,7 @@ public class MainController {
 
 	@PostMapping("/emergency")
 	public GaeEntity emergencyFuelToDatabase(@RequestBody GaeEntity entity, Model model) {
+		log.debug("Handling post request for api/emergency");
 		if (entity != null) {
 
 			GaeEntity savedEntity = service.saveData(entity);
@@ -202,6 +217,7 @@ public class MainController {
 
 	@PostMapping("/key")
 	public GaeEntity keyRepairToDatabase(@RequestBody GaeEntity entity, Model model) {
+		log.debug("Handling post request for api/key");
 		if (entity != null) {
 
 			GaeEntity savedEntity = service.saveData(entity);
@@ -225,6 +241,7 @@ public class MainController {
 
 	@PostMapping("/minor")
 	public GaeEntity minorRepairToDatabase(@RequestBody GaeEntity entity, Model model) {
+		log.debug("Handling post request for api/minor");
 		if (entity != null) {
 
 			GaeEntity savedEntity = service.saveData(entity);
@@ -248,6 +265,7 @@ public class MainController {
 
 	@PostMapping("/puncture")
 	public GaeEntity punctureToDatabase(@RequestBody GaeEntity entity, Model model) {
+		log.debug("Handling post request for api/puncture");
 		if (entity != null) {
 
 			GaeEntity savedEntity = service.saveData(entity);
@@ -271,6 +289,7 @@ public class MainController {
 
 	@PostMapping("/detailing")
 	public GaeEntity carDetailingToDatabase(@RequestBody GaeEntity entity, Model model) {
+		log.debug("Handling post request for api/detailing");
 		if (entity != null) {
 
 			GaeEntity savedEntity = service.saveData(entity);
@@ -294,6 +313,7 @@ public class MainController {
 
 	@PostMapping("/wash")
 	public GaeEntity carWashToDatabase(@RequestBody GaeEntity entity, Model model) {
+		log.debug("Handling post request for api/wash");
 		if (entity != null) {
 
 			GaeEntity savedEntity = service.saveData(entity);
@@ -317,6 +337,7 @@ public class MainController {
 
 	@PostMapping("/spa")
 	public GaeEntity deepSpaToDatabase(@RequestBody GaeEntity entity, Model model) {
+		log.debug("Handling post request for api/spa");
 		if (entity != null) {
 
 			GaeEntity savedEntity = service.saveData(entity);
@@ -340,6 +361,7 @@ public class MainController {
 
 	@PostMapping("/interior")
 	public GaeEntity interiorCleaningToDatabase(@RequestBody GaeEntity entity, Model model) {
+		log.debug("Handling post request for api/interior");
 		if (entity != null) {
 
 			GaeEntity savedEntity = service.saveData(entity);
@@ -363,6 +385,7 @@ public class MainController {
 
 	@PostMapping("/callBack")
 	public ServiceRequestEntity requestToDatabase(@RequestBody ServiceRequestEntity requestEntity, Model model) {
+		log.debug("Handling post request for api/callBack");
 		if (requestEntity != null) {
 
 			ServiceRequestEntity requestSaved = service.saveRequests(requestEntity);
@@ -381,6 +404,7 @@ public class MainController {
 
 	@PostMapping("/suggest")
 	public SuggestionsEntity suggestionsToDatabase(@RequestBody SuggestionsEntity suggestEntity) {
+		log.debug("Handling post request for api/suggest");
 		if (suggestEntity != null) {
 
 			SuggestionsEntity suggestionSaved = service.saveSuggestions(suggestEntity);
@@ -403,6 +427,7 @@ public class MainController {
 
 	@PostMapping("/partner")
 	public PartnersEntity partnersRequestToDatabase(@RequestBody PartnersEntity partnersEntity) {
+		log.debug("Handling post request for api/partner");
 		if (partnersEntity != null) {
 			PartnersEntity savedPartners = service.savePartners(partnersEntity); // Save the received data
 
@@ -429,6 +454,7 @@ public class MainController {
 
 	@PostMapping("/refer")
 	public RefferalEntity refferalRequestToDatabase(@RequestBody RefferalEntity refEntity) {
+		log.debug("Handling post request for api/refer");
 		if (refEntity != null) {
 			RefferalEntity savedRefferal = service.saveRefferal(refEntity); // Save the received data
 
@@ -453,10 +479,13 @@ public class MainController {
 
 	@PostMapping("/subscribe")
 	public SubscribeEntity subscribersToDatabase(@RequestBody SubscribeEntity subscribeEntity) {
+		log.debug("Handling post request for api/subscribe");
 
 		if (subscribeEntity != null) {
 			SubscribeEntity subEntity = service.saveSubscribers(subscribeEntity);
-
+			
+			log.debug("issue is here mail problem from server");
+			
 			String to = "manojtj.xworkz@gmail.com";
 			String subject = "New Subscriber";
 			String text = "Dear Team, \r\n" + "\r\n" + "There's a new Subscriber \r\n " + "\r\n"
@@ -469,6 +498,22 @@ public class MainController {
 		}
 
 		return subscribeEntity;
+	}
+
+	@PostMapping("/test")
+	public ResponseEntity<String> testPostMapping(@RequestBody Map<String, Object> requestBody) {
+		log.debug("Handling post request for api/test");
+		// Log the request payload (optional)
+		System.out.println("Received request: " + requestBody.toString());
+
+		// Check if the 'name' field is present in the request body
+		if (requestBody.containsKey("name")) {
+			String name = requestBody.get("name").toString();
+			return ResponseEntity.ok("Request received successfully, name: " + name);
+		}
+
+		// Return a simple response if 'name' is not present
+		return ResponseEntity.ok("Request received successfully");
 	}
 
 }
